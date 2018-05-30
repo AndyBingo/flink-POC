@@ -1,0 +1,136 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0"
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+
+    <groupId>com.ebay.dss</groupId>
+    <artifactId>flink_test</artifactId>
+    <version>1.0-SNAPSHOT</version>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <configuration>
+                    <source>1.8</source>
+                    <target>1.8</target>
+                </configuration>
+            </plugin>
+            <plugin>
+                <groupId>io.ebay.rheos</groupId>
+                <artifactId>rheos-iaf-maven-plugin</artifactId>
+                <version>0.0.5-SNAPSHOT</version>
+
+                <configuration>
+                    <credentialFilePath>${project.basedir}/src/main/resources/credentials.xml</credentialFilePath>
+                    <iafId>urn:ebay-marketplace-consumerid:ec47257d-f674-43ec-a8b5-eb76cbbe19a5</iafId>
+                    <iafEnv>staging</iafEnv>
+                </configuration>
+
+                <executions>
+                    <execution>
+                        <phase>compile</phase>
+                        <goals>
+                            <goal>jaas</goal>
+                        </goals>
+                    </execution>
+                </executions>
+            </plugin>
+        </plugins>
+    </build>
+
+
+    <properties>
+        <flink.version>1.3.2</flink.version>
+        <cassandra.version>2.0.3</cassandra.version>
+        <torocommon.version>2.0.0-SNAPSHOT</torocommon.version>
+    </properties>
+
+
+    <dependencies>
+        <dependency>
+            <groupId>io.ebay.rheos</groupId>
+            <artifactId>rheos-client</artifactId>
+            <version>0.0.8-SNAPSHOT</version>
+        </dependency>
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-core</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka-0.10_2.11 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka-0.10_2.11</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-connector-kafka-0.10_2.11 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-connector-kafka-0.8_2.11</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <!-- https://mvnrepository.com/artifact/org.apache.kafka/kafka -->
+
+
+        <!-- https://mvnrepository.com/artifact/org.apache.flink/flink-streaming-java_2.11 -->
+        <dependency>
+            <groupId>org.apache.flink</groupId>
+            <artifactId>flink-streaming-java_2.11</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
+        <dependency>
+            <groupId>com.couchbase.client</groupId>
+            <artifactId>java-client</artifactId>
+            <version>2.5.5</version>
+        </dependency>
+
+        <dependency>
+            <groupId>org.yaml</groupId>
+            <artifactId>snakeyaml</artifactId>
+            <version>1.11</version>
+        </dependency>
+
+
+        <dependency>
+            <groupId>com.datastax.cassandra</groupId>
+            <artifactId>cassandra-driver-core</artifactId>
+            <version>2.1.4</version>
+        </dependency>
+
+
+    </dependencies>
+    <repositories>
+        <repository>
+            <id>central</id>
+            <url>http://ebaycentral/content/repositories/central</url>
+        </repository>
+
+        <repository>
+            <id>raptor-releases</id>
+            <url>http://ebaycentral/content/repositories/releases/</url>
+        </repository>
+        <repository>
+            <id>raptor-snapshots</id>
+            <url>http://ebaycentral/content/repositories/snapshots/</url>
+            <snapshots>
+                <updatePolicy>always</updatePolicy>
+            </snapshots>
+        </repository>
+        <repository>
+            <id>raptor-thirdparty</id>
+            <url>http://ebaycentral/content/repositories/thirdparty</url>
+        </repository>
+
+        <repository>
+            <id>straas.snapshots</id>
+            <url>http://straas-nexus.vip.slc01.dev.ebayc3.com/content/repositories/snapshots/</url>
+        </repository>
+    </repositories>
+
+</project>

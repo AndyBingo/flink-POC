@@ -1,0 +1,16 @@
+Index: src/main/java/com/ebay/dss/BizPerf.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/ebay/dss/BizPerf.java	(date 1526632720000)
++++ src/main/java/com/ebay/dss/BizPerf.java	(date 1526632720000)
+@@ -86,7 +86,7 @@
+ 
+         DataStream<EventItem> roundTimestampDataStream = tsDiffDataStream.map(new RoundTimestamp(Calendar.HOUR));
+ 
+-        DataStream<EventItem> countryRollupDataStream = roundTimestampDataStream.map(new CountryRollup(bucket,(String)config.get("country_rollup")));
++        DataStream<EventItem> countryRollupDataStream = roundTimestampDataStream.map(new CountryRollup((Map<String,Object>) config.get(CB_ROLLUP)));
+ 
+         DataStream<EventItem> planGmvDataStream = countryRollupDataStream.map(new PlanGmv(bucket,(String)config.get("plan_rate")));
+ 

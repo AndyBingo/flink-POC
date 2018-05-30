@@ -1,0 +1,29 @@
+Index: src/main/java/com/ebay/dss/transformations/CountryRollup.java
+IDEA additional info:
+Subsystem: com.intellij.openapi.diff.impl.patch.CharsetEP
+<+>UTF-8
+===================================================================
+--- src/main/java/com/ebay/dss/transformations/CountryRollup.java	(date 1526632692000)
++++ src/main/java/com/ebay/dss/transformations/CountryRollup.java	(date 1526632692000)
+@@ -13,14 +13,17 @@
+ public class CountryRollup implements MapFunction<EventItem, EventItem> {
+     private String documentId;
+     private Bucket bucket;
+-
+-    public CountryRollup(Bucket bucket, String documentId) {
+-        this.documentId=documentId;
+-        this.bucket = bucket;
++    private CouchbaseCluster cluster;
++    public CountryRollup(Map<String, Object> config) {
++        this.documentId=(String)config.get("country_rollup");
++        this.cluster = CouchbaseCluster.create((String)config.get("clusterName"));
++        cluster.authenticate((String)config.get("userName"), (String)config.get("password"));
++        this.bucket = cluster.openBucket((String)config.get("bucketName"));
+     }
+ 
+     @Override
+     public EventItem map(EventItem eventItem) throws Exception {
++
+         eventItem.setSlr_rollup(bucket.mapGet(documentId,eventItem.getSellercntry(),String.class));
+         return eventItem;
+     }

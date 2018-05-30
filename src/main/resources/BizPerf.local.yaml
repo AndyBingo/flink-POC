@@ -1,0 +1,56 @@
+# MUST set the number of workers in the topology
+# see http://storm.apache.org/documentation/Understanding-the-parallelism-of-a-Storm-topology.html to understand the concepts WORKER/EXECUTOR/TASK
+topology.workers: 1
+
+# it's the task numbers to act as Storm backend acker processors, set to 0 to disable it
+# See http://storm.apache.org/documentation/Guaranteeing-message-processing.html to understand how ACK works in Storm
+topology.acker.executors: 0
+
+# set the max pending records in one spout
+# see https://nathanmarz.github.io/storm/doc/backtype/storm/Config.html#TOPOLOGY_MAX_SPOUT_PENDING
+topology.max.spout.pending: 1000
+
+# set the JVM size of worker
+# see https://storm.apache.org/apidocs/backtype/storm/Config.html#TOPOLOGY_WORKER_CHILDOPTS
+topology.worker.childopts: "-Xmx2048m"
+
+# set CAL debug mode
+# see https://wiki.vip.corp.ebay.com/display/DataServicesandSolutions/Guidelines+and+FAQ#GuidelinesandFAQ-5.what%27sthedefinitionof*.cal.debug.modeinYAMLconfiguration?
+#topology.cal.debug.mode: "OFF"
+
+# cusomized configuration
+KAFKA.SPOUT.CONFIG:
+    rheos.services.urls: "https://rheos-services.stratus.qa.ebay.com"
+
+
+consumer.name: "transactiontest"
+consumer.clientid: "dafe5c18-96a7-4f2e-b500-75fea33084f0"
+consumer.topic: "tora.in.rtdf.transaction.new"
+
+producer.clientid: "1556da2f-8ad4-4413-b655-1d753b26164e"
+producer.topic: "tora.out.transactiontest.sales.test"
+producer.topic.schema: "sales.test"
+
+cassandra.hosts: catora01.db.stratus.ebay.com,catora02.db.stratus.ebay.com,catora03.db.stratus.ebay.com,catora04.db.stratus.ebay.com
+cassandra.keyspace: nousks
+cassandra.username: nous_app
+cassandra.password: gykbpMYWtb4
+cassandra.table: biz_hly
+
+app.filter.site: "0,2,100"
+app.filter.item: {
+              mongoHosts: ["mgcuratedtrendmdbd1.db.stratus.ebay.com:27017","mgcuratedtrendmdbd2.db.stratus.ebay.com:27017","mgcuratedtrendmdbd3.db.stratus.ebay.com:27017"],
+              mongoDB: deals4,
+              mongoCollection: items
+              }
+couchbase.item: {
+              clusterName: "localhost",
+              userName: "transaction",
+              password: "password",
+              bucketName: "transaction",
+              country_rollup: "cntry_rollup.csv",
+              standard_vertical: "standard_vertical.csv",
+              na_vertical: "new_vertical.csv",
+              na-meta: "na-meta.csv",
+              plan_rate: "plan_rate_20180121.csv"
+        }
